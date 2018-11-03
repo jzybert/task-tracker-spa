@@ -21,8 +21,6 @@ class Root extends Component {
       session: null
     };
 
-    this.create_session("bob@example.com", "pass1");
-
     this.fetch_users();
     this.fetch_tasks();
   }
@@ -66,7 +64,6 @@ class Root extends Component {
     this.fetch_path(
       "/api/v1/users",
       response => {
-        console.log(response);
         let updatedState = _.assign({}, this.state, {
           users: response.data
         });
