@@ -11,7 +11,7 @@ function Task(props) {
   let {root, task} = props;
 
   return (
-    <div className="card col-4">
+    <div className="card col-3" style={{margin: "5px"}}>
       <div className="card-body">
         <h5 className="card-title">{task.title}</h5>
         {task.is_complete ?

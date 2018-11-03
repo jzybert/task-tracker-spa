@@ -76,13 +76,15 @@ class Root extends Component {
     return (
       <Router>
         <div>
-          <Header root={this} />
-          <Route path="/" exact={true} render={() =>
-            <TaskList tasks={this.state.tasks} />
-          } />
-          <Route path="/users" exact={true} render={() =>
-            <UserList users={this.state.users} />
-          } />
+          <div style={{margin: "0 25px"}}>
+            <Header root={this} />
+            <Route path="/" exact={true} render={() =>
+              <TaskList tasks={this.state.tasks} />
+            } />
+            <Route path="/users" exact={true} render={() =>
+              <UserList users={this.state.users} />
+            } />
+          </div>
         </div>
       </Router>
     );
