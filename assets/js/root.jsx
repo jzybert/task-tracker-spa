@@ -19,14 +19,66 @@ class Root extends Component {
       tasks: props.tasks,
       users: [],
       session: null
-    }
+    };
+
+    this.create_session("bob@example.com", "pass1");
+
+    this.fetch_users();
+    this.fetch_tasks();
+  }
+
+  create_session(email, password) {
+    $.ajax("/api/v1/sessions", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({email, password}),
+      success: response => {
+        let updatedState = _.assign({}, this.state, {session: response.data});
+        this.setState(updatedState);
+      }
+    });
+  }
+
+  fetch_path(path, success_callback) {
+    $.ajax(path, {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: "",
+      success: success_callback
+    });
+  }
+
+  fetch_tasks() {
+    this.fetch_path(
+      "/api/v1/tasks",
+      response => {
+        let updatedState = _.assign({}, this.state, {
+          tasks: response.data
+        });
+        this.setState(updatedState);
+      }
+    )
+  }
+
+  fetch_users() {
+    this.fetch_path(
+      "/api/v1/users",
+      response => {
+        let updatedState = _.assign({}, this.state, {
+          users: response.data
+        });
+        this.setState(updatedState);
+      }
+    )
   }
 
   render() {
     return (
       <Router>
         <div>
-          <Header />
+          <Header root={this} />
           <Route path="/" exact={true} render={() =>
             <TaskList tasks={this.state.tasks} />
           } />
