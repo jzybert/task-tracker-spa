@@ -66,6 +66,7 @@ class Root extends Component {
     this.fetch_path(
       "/api/v1/users",
       response => {
+        console.log(response);
         let updatedState = _.assign({}, this.state, {
           users: response.data
         });
@@ -83,7 +84,7 @@ class Root extends Component {
             <TaskList tasks={this.state.tasks} />
           } />
           <Route path="/users" exact={true} render={() =>
-            <UserList tasks={this.state.users} />
+            <UserList users={this.state.users} />
           } />
         </div>
       </Router>
