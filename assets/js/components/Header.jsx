@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import LoginButton from './LoginButton';
 
 export default function Header(props) {
-  let {root} = props;
+  let {root, sessionCreated, session} = props;
 
   return (
     <div className="row my-2">
@@ -15,7 +15,7 @@ export default function Header(props) {
         <p><Link to={"/users"} onClick={root.fetch_users.bind(root)}>Users</Link></p>
       </div>
       <div className="col-6">
-        <LoginButton root={root} />
+        <LoginButton root={root} sessionCreated={sessionCreated} session={session} />
       </div>
     </div>
   );

@@ -18,7 +18,8 @@ class Root extends Component {
     this.state = {
       tasks: props.tasks,
       users: [],
-      session: null
+      session: null,
+      sessionCreated: false
     };
 
     this.fetch_users();
@@ -32,7 +33,10 @@ class Root extends Component {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({email, password}),
       success: response => {
-        let updatedState = _.assign({}, this.state, {session: response.data});
+        let updatedState = _.assign({}, this.state, {
+          session: response.data,
+          sessionCreated: true
+        });
         this.setState(updatedState);
       }
     });
@@ -77,7 +81,7 @@ class Root extends Component {
       <Router>
         <div>
           <div style={{margin: "0 25px"}}>
-            <Header root={this} />
+            <Header root={this} sessionCreated={this.state.sessionCreated} session={this.state.session} />
             <Route path="/" exact={true} render={() =>
               <TaskList tasks={this.state.tasks} />
             } />
