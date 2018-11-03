@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function LoginButton(props) {
   let {root} = props;
-  
+
   function login() {
     let email = $('#login-email').val();
     let pw = $('#login-password').val();
