@@ -24,5 +24,7 @@ defmodule TaskTrackerSpaWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit]
+    resources "/tasks", TaskController, except: [:new, :edit]
+    resources "/assigned_tasks", AssignedTaskController, except: [:new, :edit]
   end
 end

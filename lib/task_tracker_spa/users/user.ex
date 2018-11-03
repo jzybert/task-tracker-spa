@@ -14,6 +14,8 @@ defmodule TaskTrackerSpa.Users.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
 
+    has_many :assigned_tasks, TaskTrackerSpa.AssignedTasks.AssignedTask
+
     timestamps()
   end
 
