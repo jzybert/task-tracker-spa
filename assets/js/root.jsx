@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 import {Link, BrowserRouter as Router, Route} from 'react-router-dom';
 import _ from 'lodash';
 import $ from 'jquery';
@@ -8,8 +9,11 @@ import Header from './components/Header';
 import UserList from './components/UserList';
 import TaskList from './components/TaskList';
 
-export default function root_init(node) {
-  ReactDOM.render(<Root tasks={window.tasks} />, node);
+export default function root_init(node, store) {
+  ReactDOM.render(
+    <Provider store={store}>
+      <Root tasks={window.tasks} />
+    </Provider>, node);
 }
 
 class Root extends Component {
