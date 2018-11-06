@@ -85,7 +85,7 @@ class Root extends Component {
       <Router>
         <div>
           <div style={{margin: "0 25px"}}>
-            <Header root={this} sessionCreated={this.state.sessionCreated} session={this.state.session} />
+            <Header root={this} />
             <Route path="/" exact={true} render={() =>
               <TaskList tasks={this.state.tasks} />
             } />
