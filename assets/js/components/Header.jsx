@@ -12,10 +12,10 @@ class Header extends Component {
     return (
       <div className="row my-2">
         <div className="col-4">
-          <h1><Link to={"/"} onClick={api.fetch_tasks}>Task Tracker</Link></h1>
+          <h1><Link to={"/"} onClick={() => {api.fetch_tasks()}}>Task Tracker</Link></h1>
         </div>
         <div className="col-2">
-          <p><Link to={"/users"} onClick={api.fetch_users}>Users</Link></p>
+          <p><Link to={"/users"} onClick={() => {api.fetch_users()}}>Users</Link></p>
         </div>
         <div className="col-6">
           <LoginButton root={root} sessionCreated={sessionCreated} session={session} />
