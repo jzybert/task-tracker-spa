@@ -14,8 +14,11 @@ class Header extends Component {
         <div className="col-4">
           <h1><Link to={"/"} onClick={() => {api.fetch_tasks()}}>Task Tracker</Link></h1>
         </div>
-        <div className="col-2">
-          <p><Link to={"/users"} onClick={() => {api.fetch_users()}}>Users</Link></p>
+        <div className="col-2 text-center">
+          <div className="row">
+            <p style={{marginTop: "17px", marginRight: "10px"}}><Link to={"/"} onClick={() => {api.fetch_tasks()}}>Tasks</Link></p>
+            <p style={{marginTop: "17px"}}><Link to={"/users"} onClick={() => {api.fetch_users()}}>Users</Link></p>
+          </div>
         </div>
         <div className="col-6">
           <LoginButton sessionCreated={sessionCreated} session={session} />
