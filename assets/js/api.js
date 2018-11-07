@@ -46,6 +46,13 @@ class TaskTrackerServer {
     )
   }
 
+  delete_session() {
+    store.dispatch({
+      type: DELETE_SESSION,
+      session: null
+    });
+  }
+
   create_user(email, password, passwordConfirmation) {
     let user = {
       email,
@@ -96,11 +103,8 @@ class TaskTrackerServer {
     )
   }
 
-  delete_session() {
-    store.dispatch({
-      type: DELETE_SESSION,
-      session: null
-    });
+  get_task(task_id) {
+
   }
 
   fetch_tasks() {

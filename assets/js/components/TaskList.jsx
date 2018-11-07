@@ -26,7 +26,9 @@ function Task(props) {
   return (
     <div className="card col-3" style={{margin: "5px"}}>
       <div className="card-body">
-        <h5 className="card-title">{task.title}</h5>
+        <Link to={"/task/" + task.id}>
+          <h5 className="card-title">{task.title}</h5>
+        </Link>
         {task.is_complete ?
           <h6 className="card-subtitle mb-2 text-muted">Complete</h6> :
           <h6 className="card-subtitle mb-2 text-muted">Not Complete</h6>}
