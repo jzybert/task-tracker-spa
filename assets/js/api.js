@@ -1,29 +1,29 @@
 import $ from 'jquery';
 
 import store from './reducers/store';
-import {CREATE_NEW_SESSION, UPDATE_TASKS, UPDATE_USERS} from "./consts/types";
+import {
+  CREATE_NEW_SESSION, DELETE_SESSION, UPDATE_TASKS,
+  UPDATE_USERS
+} from "./consts/types";
 
 class TaskTrackerServer {
-  get(path, success_callback, error_callback) {
+  request(path, method, data, success_callback, error_callback) {
     $.ajax(path, {
-      method: "get",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      data: "",
-      success: success_callback,
-      error: error_callback
-    })
-  }
-
-  post(path, data, success_callback, error_callback) {
-    $.ajax(path, {
-      method: "post",
+      method: method,
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       data: data,
       success: success_callback,
       error: error_callback
     })
+  }
+
+  get(path, success_callback, error_callback) {
+    this.request(path, "get", "", success_callback, error_callback);
+  }
+
+  post(path, data, success_callback, error_callback) {
+    this.request(path, "post", data, success_callback, error_callback);
   }
 
   create_session(email, password) {
@@ -40,6 +40,13 @@ class TaskTrackerServer {
         console.log("Error: could not create session");
       }
     )
+  }
+
+  delete_session() {
+    store.dispatch({
+      type: DELETE_SESSION,
+      session: null
+    });
   }
 
   fetch_tasks() {

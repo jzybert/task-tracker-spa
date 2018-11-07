@@ -1,5 +1,5 @@
 import {createStore, combineReducers} from 'redux';
-import {CREATE_NEW_SESSION, UPDATE_TASKS, UPDATE_USERS} from "../consts/types";
+import {CREATE_NEW_SESSION, UPDATE_TASKS, UPDATE_USERS, DELETE_SESSION} from "../consts/types";
 
 // let initialState = {
 //   tasks: [],
@@ -42,6 +42,8 @@ function session(state = null, action) {
   switch (action.type) {
     case CREATE_NEW_SESSION:
       return action.session;
+    case DELETE_SESSION:
+      return null;
     default:
       return state;
   }
@@ -51,6 +53,8 @@ function sessionCreated(state = false, action) {
   switch (action.type) {
     case CREATE_NEW_SESSION:
       return true;
+    case DELETE_SESSION:
+      return false;
     default:
       return state;
   }

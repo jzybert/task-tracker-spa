@@ -14,7 +14,7 @@ class LoginButton extends Component {
     }
 
     function logout() {
-      //api.delete_session();
+      api.delete_session();
     }
 
     if (!sessionCreated) {

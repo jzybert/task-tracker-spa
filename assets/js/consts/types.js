@@ -1,5 +1,6 @@
 // Session
 export const CREATE_NEW_SESSION = 'CREATE_NEW_SESSION';
+export const DELETE_SESSION = 'DELETE_SESSION';
 
 // Tasks
 export const UPDATE_TASKS = 'UPDATE_TASKS';
