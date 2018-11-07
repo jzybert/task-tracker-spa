@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import api from '../api';
 
@@ -17,10 +18,6 @@ class LoginButton extends Component {
       api.delete_session();
     }
 
-    function register() {
-
-    }
-
     if (!sessionCreated) {
       return (
         <div className="form-inline my-2">
@@ -28,7 +25,9 @@ class LoginButton extends Component {
           <input id="login-password" type="password"
                  placeholder="Enter password..."/>
           <button className="btn btn-secondary" id="login-button" onClick={login}>Login</button>
-          <button className="btn btn-secondary" id="register-button" onClick={register}>Register</button>
+          <Link to={"/register"}>
+            <button className="btn btn-secondary" id="register-button">Register</button>
+          </Link>
         </div>
       );
     } else {

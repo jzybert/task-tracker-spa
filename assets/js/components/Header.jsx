@@ -8,7 +8,7 @@ import LoginButton from './LoginButton';
 
 class Header extends Component {
   render() {
-    let {root, session, sessionCreated} = this.props;
+    let {session, sessionCreated} = this.props;
     return (
       <div className="row my-2">
         <div className="col-4">
@@ -18,7 +18,7 @@ class Header extends Component {
           <p><Link to={"/users"} onClick={() => {api.fetch_users()}}>Users</Link></p>
         </div>
         <div className="col-6">
-          <LoginButton root={root} sessionCreated={sessionCreated} session={session} />
+          <LoginButton sessionCreated={sessionCreated} session={session} />
         </div>
       </div>
     );

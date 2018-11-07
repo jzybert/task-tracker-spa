@@ -20,6 +20,7 @@ defmodule TaskTrackerSpaWeb.Router do
     get "/users", PageController, :index
     get "/tasks", PageController, :index
     get "/assigned_tasks", PageController, :index
+    get "/register", PageController, :index
   end
 
   # Other scopes may use custom stacks.

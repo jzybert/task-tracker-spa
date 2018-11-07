@@ -42,6 +42,26 @@ class TaskTrackerServer {
     )
   }
 
+  create_user(email, password, passwordConfirmation) {
+    let user = {
+      email,
+      password,
+      password_confirmation: passwordConfirmation
+    };
+
+    this.post(
+      "/api/v1/users",
+      JSON.stringify({user}),
+      response => {
+        this.fetch_users();
+        this.create_session(email, password);
+      },
+      (xhr, status, error) => {
+        console.log("Error: could not create user")
+      }
+    )
+  }
+
   delete_session() {
     store.dispatch({
       type: DELETE_SESSION,

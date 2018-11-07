@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {Link, BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import api from './api';
 
 import Header from './components/Header';
 import UserList from './components/UserList';
 import TaskList from './components/TaskList';
+import Register from './components/Register';
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -35,6 +36,9 @@ class Root extends Component {
             } />
             <Route path="/users" exact={true} render={() =>
               <UserList />
+            } />
+            <Route path="/register" exact={true} render={() =>
+              <Register />
             } />
           </div>
         </div>
