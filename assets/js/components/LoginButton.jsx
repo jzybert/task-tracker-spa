@@ -6,7 +6,7 @@ import api from '../api';
 
 class LoginButton extends Component {
   render() {
-    let {sessionCreated} = this.props;
+    let {sessionCreated, session} = this.props;
 
     function login() {
       let email = $('#login-email').val();
@@ -33,7 +33,11 @@ class LoginButton extends Component {
     } else {
       return (
         <div className="form-inline my-2">
-          <p>Welcome, User</p>
+          <Link to={"/user/" + session.user_id}>
+            <div style={{marginTop: "5px"}}>
+              <p>Your Page</p>
+            </div>
+          </Link>
           <button className="btn btn-secondary" id="logout-button" onClick={logout}>Logout</button>
         </div>
       );
@@ -43,6 +47,7 @@ class LoginButton extends Component {
 
 const mapStateToProps = state => {
   return {
+    session: state.session,
     sessionCreated: state.sessionCreated
   }
 };
