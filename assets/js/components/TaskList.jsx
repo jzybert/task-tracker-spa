@@ -9,7 +9,7 @@ class TaskList extends Component {
     let taskList = _.map(tasks, task => <Task key={task.id} task={task} />);
     return (
       <div className="col-12">
-        {!sessionCreated ?
+        {sessionCreated ?
         <Link to={"/create_task"}>
           <button className="btn btn-secondary">Create Task</button>
         </Link>
