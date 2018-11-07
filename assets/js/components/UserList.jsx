@@ -1,26 +1,30 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import _ from 'lodash';
 
-export default function UserList(props) {
-  let rows = _.map(props.users, user => <User key={user.id} user={user} />);
+class UserList extends Component {
+  render() {
+    let {users} = this.props;
+    let rows = _.map(users, user => <User key={user.id} user={user}/>);
 
-  return (
-    <div className="row">
-      <div className="col-12">
-        <table className="table table-striped">
-          <thead>
+    return (
+      <div className="row">
+        <div className="col-12">
+          <table className="table table-striped">
+            <thead>
             <tr>
               <th>Email</th>
               <th>Admin?</th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             {rows}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function User(props) {
@@ -33,3 +37,11 @@ function User(props) {
     </tr>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+};
+
+export default connect(mapStateToProps, null)(UserList);

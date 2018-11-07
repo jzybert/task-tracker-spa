@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import _ from 'lodash';
 
-export default function TaskList(props) {
-  let {root, tasks} = props;
-  let taskList = _.map(tasks, task => <Task key={task.id} task={task} root={root} />);
-  return <div className="row">{taskList}</div>;
+class TaskList extends Component {
+  render() {
+    let {tasks} = this.props;
+    let taskList = _.map(tasks, task => <Task key={task.id} task={task} />);
+    return <div className="row">{taskList}</div>;
+  }
 }
 
 function Task(props) {
-  let {root, task} = props;
+  let {task} = props;
 
   return (
     <div className="card col-3" style={{margin: "5px"}}>
@@ -22,3 +25,11 @@ function Task(props) {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasks
+  }
+};
+
+export default connect(mapStateToProps, null)(TaskList);

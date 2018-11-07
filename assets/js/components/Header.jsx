@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import api from '../api';
+
 import LoginButton from './LoginButton';
 
 class Header extends Component {
@@ -10,10 +12,10 @@ class Header extends Component {
     return (
       <div className="row my-2">
         <div className="col-4">
-          <h1><Link to={"/"} onClick={root.fetch_tasks.bind(root)}>Task Tracker</Link></h1>
+          <h1><Link to={"/"} onClick={api.fetch_tasks}>Task Tracker</Link></h1>
         </div>
         <div className="col-2">
-          <p><Link to={"/users"} onClick={root.fetch_users.bind(root)}>Users</Link></p>
+          <p><Link to={"/users"} onClick={api.fetch_users}>Users</Link></p>
         </div>
         <div className="col-6">
           <LoginButton root={root} sessionCreated={sessionCreated} session={session} />
