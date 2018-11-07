@@ -11,6 +11,16 @@ defmodule TaskTrackerSpaWeb.AssignedTaskView do
   end
 
   def render("assigned_task.json", %{assigned_task: assigned_task}) do
-    %{id: assigned_task.id}
+    if Map.has_key?(assigned_task, :task) do
+      task = TaskTrackerSpaWeb.TaskView.render(
+        "task.json", %{task: assigned_task.task})
+      %{
+        id: assigned_task.id,
+        task: task,
+        user: assigned_task.user_id
+      }
+    else
+       %{id: assigned_task.id}
+    end
   end
 end

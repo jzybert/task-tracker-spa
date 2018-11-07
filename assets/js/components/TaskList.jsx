@@ -20,7 +20,7 @@ class TaskList extends Component {
   }
 }
 
-function Task(props) {
+export function Task(props) {
   let {task} = props;
 
   return (

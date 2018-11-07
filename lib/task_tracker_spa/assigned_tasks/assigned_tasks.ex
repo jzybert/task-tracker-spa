@@ -18,7 +18,8 @@ defmodule TaskTrackerSpa.AssignedTasks do
 
   """
   def list_assigned_tasks do
-    Repo.all(AssignedTask)
+    Repo.all from at in AssignedTask,
+      preload: [:task, :user]
   end
 
   def list_assigned_tasks_for_user(id) do
