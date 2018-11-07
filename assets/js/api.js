@@ -61,7 +61,12 @@ class TaskTrackerServer {
         this.create_session(email, password);
       },
       (xhr, status, error) => {
-        console.log("Error: could not create user")
+        let header = $('#header');
+        let alert = "<div class='alert alert-danger col-12 alert-dismissible fade show' role='alert'>" +
+          "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+          "<span aria-hidden='true'>&times;</span></button>" +
+          "Could not create user. Either this email is already registered or the password is not greater than 7 characters.</div>";
+        header.append(alert);
       }
     )
   }
