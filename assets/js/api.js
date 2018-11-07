@@ -121,6 +121,27 @@ class TaskTrackerServer {
     )
   }
 
+  add_time_worked(taskInfo, user_id, hours, minutes) {
+    let {id} = taskInfo;
+
+    this.request(
+      "/api/v1/tasks/" + id,
+      "patch",
+      JSON.stringify({id, task: {hours, minutes}, user_id}),
+      response => {
+        this.fetch_tasks()
+      },
+      (xhr, status, error) => {
+        let header = $('#header');
+        let alert = "<div class='alert alert-danger col-12 alert-dismissible fade show' role='alert'>" +
+          "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+          "<span aria-hidden='true'>&times;</span></button>" +
+          "Could not add time worked.</div>";
+        header.append(alert);
+      }
+    )
+  }
+
   fetch_tasks() {
     this.get(
       "/api/v1/tasks",

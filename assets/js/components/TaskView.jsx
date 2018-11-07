@@ -18,9 +18,14 @@ class TaskView extends Component {
     }
   }
 
-  addTimeWorked() {
+  addTimeWorked(taskInfo) {
+    let hours = $('#edit-time-hours').val();
+    let minutes = $('#edit-time-minutes').val();
+    let user_id = this.props.session ? this.props.session.user_id : null;
 
+    api.add_time_worked(taskInfo, user_id, hours, minutes);
   }
+
 
   render() {
     let {users} = this.props;
@@ -72,7 +77,7 @@ class TaskView extends Component {
                     <p style={{marginTop: "5px"}}>minutes</p>
                   </div>
                   <div className="col-sm-1">
-                    <button className="btn btn-secondary" onClick={() => {this.addTimeWorked()}}>Add Time Worked</button>
+                    <button className="btn btn-secondary" onClick={() => {this.addTimeWorked(taskInfo[0])}}>Add Time Worked</button>
                   </div>
                 </div>
               </div>
@@ -110,7 +115,8 @@ class TaskView extends Component {
 const mapStateToProps = state => {
   return {
     tasks: state.tasks,
-    users: state.users
+    users: state.users,
+    session: state.session
   }
 };
 

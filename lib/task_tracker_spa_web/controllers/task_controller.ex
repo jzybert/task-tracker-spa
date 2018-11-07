@@ -27,10 +27,13 @@ defmodule TaskTrackerSpaWeb.TaskController do
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do
-    task = Tasks.get_task!(id)
-
-    with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
-      render(conn, "show.json", task: task)
+    with {:ok, time_worked} <- Time.new(String.to_integer(task_params["hours"]), String.to_integer(task_params["minutes"]), 0, 0) do
+      task = Tasks.get_task!(id)
+      current_time_worked = Map.get(task, :time_worked)
+      task_params = %{:time_worked => Time.add(Time.add(time_worked, current_time_worked.hour * 3600), current_time_worked.minute * 60)}
+      with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
+        render(conn, "show.json", task: task)
+      end
     end
   end
 
