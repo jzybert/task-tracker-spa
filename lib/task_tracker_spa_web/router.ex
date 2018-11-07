@@ -23,6 +23,7 @@ defmodule TaskTrackerSpaWeb.Router do
     get "/register", PageController, :index
     get "/create_task", PageController, :index
     get "/task/:id", PageController, :index
+    get "/task/:id/edit", PageController, :index
     get "/user/:id", PageController, :index
   end
 
