@@ -17,20 +17,25 @@ class LoginButton extends Component {
       api.delete_session();
     }
 
+    function register() {
+
+    }
+
     if (!sessionCreated) {
       return (
         <div className="form-inline my-2">
           <input id="login-email" type="email" placeholder="Enter email..."/>
           <input id="login-password" type="password"
                  placeholder="Enter password..."/>
-          <button className="btn btn-secondary" onClick={login}>Login</button>
+          <button className="btn btn-secondary" id="login-button" onClick={login}>Login</button>
+          <button className="btn btn-secondary" id="register-button" onClick={register}>Register</button>
         </div>
       );
     } else {
       return (
         <div className="form-inline my-2">
           <p>Welcome, User</p>
-          <button className="btn btn-secondary" onClick={logout}>Logout</button>
+          <button className="btn btn-secondary" id="logout-button" onClick={logout}>Logout</button>
         </div>
       );
     }
