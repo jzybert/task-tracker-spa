@@ -26,9 +26,14 @@ class TaskView extends Component {
     api.add_time_worked(taskInfo, token, hours, minutes);
   }
 
+  deleteTask(taskInfo) {
+    let {id} = taskInfo;
+    api.delete_task(id);
+  }
+
 
   render() {
-    let {users, sessionCreated} = this.props;
+    let {users, sessionCreated, session} = this.props;
     let userOptions = _.map(users, user => {
       return <option key={user.id}>{user.email}</option>;
     });
@@ -107,6 +112,12 @@ class TaskView extends Component {
               <button className="btn btn-secondary">Edit Task</button>
             </Link>
           </div> : null}
+          {sessionCreated ?
+            <div style={{marginTop: "10px"}}>
+              <Link to={"/user/" + session.user_id} onClick={() => {this.deleteTask(taskInfo[0])}}>
+                <button className="btn btn-secondary">Delete Task</button>
+              </Link>
+            </div> : null}
         </div>
       );
     } else {

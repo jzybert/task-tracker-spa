@@ -157,6 +157,19 @@ class TaskTrackerServer {
     )
   }
 
+  delete_task(id) {
+    this.request(
+      "/api/v1/tasks/" + id,
+      "delete",
+      response => {
+        this.fetch_tasks()
+      },
+      (xhr, status, error) => {
+        console.log("Error: failed to delete task");
+      }
+    )
+  }
+
   fetch_users() {
     this.get(
       "/api/v1/users",
