@@ -14,7 +14,7 @@ class TaskView extends Component {
     })[0];
 
     if (userInfo) {
-      //api.assign_task_to_user(userInfo.id, this.props.match.params.id);
+      api.assign_task_to_user(userInfo.id, this.props.match.params.id);
     }
   }
 

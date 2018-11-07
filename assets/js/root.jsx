@@ -26,6 +26,7 @@ class Root extends Component {
 
     api.fetch_users();
     api.fetch_tasks();
+    api.fetch_assigned_tasks();
   }
 
   render() {

@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 import store from './reducers/store';
 import {
-  CREATE_NEW_SESSION, DELETE_SESSION, UPDATE_TASKS,
+  CREATE_NEW_SESSION, DELETE_SESSION, UPDATE_ASSIGNED_TASKS, UPDATE_TASKS,
   UPDATE_USERS
 } from "./consts/types";
 
@@ -103,8 +103,22 @@ class TaskTrackerServer {
     )
   }
 
-  get_task(task_id) {
-
+  assign_task_to_user(user_id, task_id) {
+    this.post(
+      "/api/v1/assigned_tasks",
+      JSON.stringify({assigned_task: {user_id, task_id}}),
+      response => {
+        this.fetch_assigned_tasks();
+      },
+      (xhr, status, error) => {
+        let header = $('#header');
+        let alert = "<div class='alert alert-danger col-12 alert-dismissible fade show' role='alert'>" +
+          "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+          "<span aria-hidden='true'>&times;</span></button>" +
+          "Could not assign task. It might already be assigned to someone else!</div>";
+        header.append(alert);
+      }
+    )
   }
 
   fetch_tasks() {
@@ -133,6 +147,21 @@ class TaskTrackerServer {
       },
       (xhr, status, error) => {
         console.log("Error: could not fetch users");
+      }
+    )
+  }
+
+  fetch_assigned_tasks() {
+    this.get(
+      "/api/v1/assigned_tasks",
+      response => {
+        store.dispatch({
+          type: UPDATE_ASSIGNED_TASKS,
+          assigned_tasks: response.data
+        })
+      },
+      (xhr, status, error) => {
+        console.log("Error: could not fetch assigned tasks");
       }
     )
   }

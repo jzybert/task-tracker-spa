@@ -1,5 +1,8 @@
 import {createStore, combineReducers} from 'redux';
-import {CREATE_NEW_SESSION, UPDATE_TASKS, UPDATE_USERS, DELETE_SESSION} from "../consts/types";
+import {
+  CREATE_NEW_SESSION, UPDATE_TASKS, UPDATE_USERS, DELETE_SESSION,
+  UPDATE_ASSIGNED_TASKS
+} from "../consts/types";
 
 // let initialState = {
 //   tasks: [],
@@ -33,6 +36,8 @@ function users(state = [], action) {
 
 function assigned_tasks(state = [], action) {
   switch (action.type) {
+    case UPDATE_ASSIGNED_TASKS:
+      return action.assigned_tasks;
     default:
       return state;
   }
