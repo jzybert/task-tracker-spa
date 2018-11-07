@@ -43,18 +43,57 @@ function assigned_tasks(state = [], action) {
   }
 }
 
-function session(state = null, action) {
+function getCookie(name) {
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(";");
+  for (let ii = 0; ii < ca.length; ii++) {
+    let c = ca[ii];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length)
+    }
+  }
+  return "";
+}
+
+function initialSession() {
+  let token = getCookie("token=");
+  let user_id = getCookie("user_id=");
+
+  if (token && user_id) {
+    return {token, user_id};
+  } else {
+    return null;
+  }
+}
+
+function initialSessionCreated() {
+  let token = getCookie("token=");
+  let user_id = getCookie("user_id=");
+
+  return token && user_id;
+}
+
+function session(state = initialSession(), action) {
   switch (action.type) {
     case CREATE_NEW_SESSION:
+      if (action.session) {
+        document.cookie = "token=" + action.session.token;
+        document.cookie = "user_id=" + action.session.user_id;
+      }
       return action.session;
     case DELETE_SESSION:
+      document.cookie = "token=";
+      document.cookie = "user_id=";
       return null;
     default:
       return state;
   }
 }
 
-function sessionCreated(state = false, action) {
+function sessionCreated(state = initialSessionCreated(), action) {
   switch (action.type) {
     case CREATE_NEW_SESSION:
       return true;
