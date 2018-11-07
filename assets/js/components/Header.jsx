@@ -10,7 +10,7 @@ class Header extends Component {
   render() {
     let {session, sessionCreated} = this.props;
     return (
-      <div className="row my-2">
+      <div className="row my-2" id="header">
         <div className="col-4">
           <h1><Link to={"/"} onClick={() => {api.fetch_tasks()}}>Task Tracker</Link></h1>
         </div>

@@ -7,7 +7,8 @@ defmodule TaskTrackerSpaWeb.SessionController do
   alias TaskTrackerSpa.Users.User
 
   def create(conn, %{"email" => email, "password" => password}) do
-    with %User{} = user <- Users.get_and_auth_user(email, password) do
+    user = Users.get_and_auth_user(email, password)
+    if user do
       resp = %{
         data: %{
           token: Phoenix.Token.sign(TaskTrackerSpaWeb.Endpoint, "user_id", user.id),
@@ -17,6 +18,10 @@ defmodule TaskTrackerSpaWeb.SessionController do
       conn
       |> put_resp_header("content-type", "application/json; charset=utf-8")
       |> send_resp(:created, Jason.encode!(resp))
+    else
+      conn
+      |> put_resp_header("content-type", "application/json; charset=utf-8")
+      |> send_resp(:bad_request, Jason.encode!(%{}))
     end
   end
 end

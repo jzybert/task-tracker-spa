@@ -37,7 +37,11 @@ class TaskTrackerServer {
         });
       },
       (xhr, status, error) => {
-        console.log("Error: could not create session");
+        let header = $('#header');
+        let alert = "<div class='alert alert-danger col-12 alert-dismissible fade show' role='alert'>" +
+          "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+          "<span aria-hidden='true'>&times;</span></button>Incorrect email and password.</div>";
+        header.append(alert);
       }
     )
   }
