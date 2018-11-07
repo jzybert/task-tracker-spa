@@ -12,6 +12,7 @@ defmodule TaskTrackerSpaWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
+    task_params = Map.put(task_params, "time_worked", ~T[00:00:00.000])
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
       |> put_status(:created)

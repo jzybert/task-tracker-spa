@@ -9,6 +9,7 @@ import Header from './components/Header';
 import UserList from './components/UserList';
 import TaskList from './components/TaskList';
 import Register from './components/Register';
+import CreateTask from './components/CreateTask';
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -39,6 +40,9 @@ class Root extends Component {
             } />
             <Route path="/register" exact={true} render={() =>
               <Register />
+            } />
+            <Route path="/create_task" exact={true} render={() =>
+              <CreateTask />
             } />
           </div>
         </div>

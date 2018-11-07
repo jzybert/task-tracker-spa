@@ -1,12 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import _ from 'lodash';
 
 class TaskList extends Component {
   render() {
-    let {tasks} = this.props;
+    let {tasks, sessionCreated} = this.props;
     let taskList = _.map(tasks, task => <Task key={task.id} task={task} />);
-    return <div className="row">{taskList}</div>;
+    return (
+      <div className="col-12">
+        {!sessionCreated ?
+        <Link to={"/create_task"}>
+          <button className="btn btn-secondary">Create Task</button>
+        </Link>
+        : null}
+        <div className="row">{taskList}</div>
+      </div>
+    );
   }
 }
 
@@ -28,7 +38,8 @@ function Task(props) {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks
+    tasks: state.tasks,
+    sessionCreated: state.sessionCreated
   }
 };
 

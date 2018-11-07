@@ -71,6 +71,31 @@ class TaskTrackerServer {
     )
   }
 
+  create_task(title, desc) {
+    let task = {
+      title,
+      desc,
+      is_complete: false,
+      time_worked: 0
+    };
+
+    this.post(
+      "/api/v1/tasks",
+      JSON.stringify({task}),
+      response => {
+        this.fetch_tasks();
+      },
+      (xhr, status, error) => {
+        let header = $('#header');
+        let alert = "<div class='alert alert-danger col-12 alert-dismissible fade show' role='alert'>" +
+          "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+          "<span aria-hidden='true'>&times;</span></button>" +
+          "Could not create task. Make sure you entered a title and description.</div>";
+        header.append(alert);
+      }
+    )
+  }
+
   delete_session() {
     store.dispatch({
       type: DELETE_SESSION,
