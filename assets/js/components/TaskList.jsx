@@ -6,7 +6,7 @@ import _ from 'lodash';
 class TaskList extends Component {
   render() {
     let {tasks, sessionCreated} = this.props;
-    let taskList = _.map(tasks, task => <Task key={task.id} task={task} />);
+    let taskList = _.map(tasks, task => <Task key={task.id} task={task} unassigned={false} />);
     return (
       <div className="col-12">
         {sessionCreated ?
@@ -21,7 +21,7 @@ class TaskList extends Component {
 }
 
 export function Task(props) {
-  let {task} = props;
+  let {task, unassigned, unassignedCallback} = props;
 
   return (
     <div className="card col-3" style={{margin: "5px"}}>
@@ -33,6 +33,9 @@ export function Task(props) {
           <h6 className="card-subtitle mb-2 text-muted">Complete</h6> :
           <h6 className="card-subtitle mb-2 text-muted">Not Complete</h6>}
         <p className="card-text">{task.desc}</p>
+        {unassigned ?
+          <button className="btn btn-secondary btn-sm" onClick={() => {unassignedCallback(task.id)}}>Unassign</button>
+          : null}
       </div>
     </div>
   );

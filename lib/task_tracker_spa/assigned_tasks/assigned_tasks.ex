@@ -17,7 +17,7 @@ defmodule TaskTrackerSpa.AssignedTasks do
       [%AssignedTask{}, ...]
 
   """
-  def list_assigned_tasks do
+  def list_assigned_tasks() do
     Repo.all from at in AssignedTask,
       preload: [:task, :user]
   end
@@ -42,7 +42,11 @@ defmodule TaskTrackerSpa.AssignedTasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_assigned_task!(id), do: Repo.get!(AssignedTask, id)
+  def get_assigned_task!(id) do
+    Repo.one! from at in AssignedTask,
+      where: at.id ==^ id,
+      preload: [:task, :user]
+  end
 
   @doc """
   Creates a assigned_task.
