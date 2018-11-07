@@ -27,21 +27,28 @@ defmodule TaskTrackerSpaWeb.TaskController do
     render(conn, "show.json", task: task)
   end
 
-  def update(conn, %{"id" => id, "task" => task_params, "token" => token}) do
+  def update(conn, %{"id" => id, "task" => task_params, "token" => token, "type" => type}) do
     {:ok, user_id} = Phoenix.Token.verify(TaskTrackerSpaWeb.Endpoint, "user_id", token, max_age: 86400)
-    task_ids_for_user = Enum.map(AssignedTasks.list_assigned_tasks_for_user(user_id), fn(at) -> at.task.id end)
-    is_task_assigned_to_user = String.to_integer(id) in task_ids_for_user
-    if is_task_assigned_to_user do
-      with {:ok, time_worked} <- Time.new(String.to_integer(task_params["hours"]), String.to_integer(task_params["minutes"]), 0, 0) do
-        task = Tasks.get_task!(id)
-        current_time_worked = Map.get(task, :time_worked)
-        task_params = %{:time_worked => Time.add(Time.add(time_worked, current_time_worked.hour * 3600), current_time_worked.minute * 60)}
-        with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
-          render(conn, "show.json", task: task)
+    if type === "TIME" do
+      task_ids_for_user = Enum.map(AssignedTasks.list_assigned_tasks_for_user(user_id), fn(at) -> at.task.id end)
+      is_task_assigned_to_user = String.to_integer(id) in task_ids_for_user
+      if is_task_assigned_to_user do
+        with {:ok, time_worked} <- Time.new(String.to_integer(task_params["hours"]), String.to_integer(task_params["minutes"]), 0, 0) do
+          task = Tasks.get_task!(id)
+          current_time_worked = Map.get(task, :time_worked)
+          task_params = %{:time_worked => Time.add(Time.add(time_worked, current_time_worked.hour * 3600), current_time_worked.minute * 60)}
+          with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
+            render(conn, "show.json", task: task)
+          end
         end
+      else
+        send_resp(conn, :unauthorized, "You are not assigned to this task. Failed to add time worked.")
       end
     else
-      send_resp(conn, :unauthorized, "You are not assigned to this task. Failed to add time worked.")
+      task = Tasks.get_task!(id)
+      with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
+        render(conn, "show.json", task: task)
+      end
     end
   end
 

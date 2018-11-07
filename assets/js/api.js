@@ -127,7 +127,7 @@ class TaskTrackerServer {
     this.request(
       "/api/v1/tasks/" + id,
       "patch",
-      JSON.stringify({id, task: {hours, minutes}, token}),
+      JSON.stringify({id, task: {hours, minutes}, token, type: 'TIME'}),
       response => {
         this.fetch_tasks()
       },
@@ -153,6 +153,25 @@ class TaskTrackerServer {
       },
       (xhr, status, error) => {
         console.log("Error: could not fetch tasks");
+      }
+    )
+  }
+
+  update_task(task, id, token) {
+    this.request(
+      "/api/v1/tasks/" + id,
+      "patch",
+      JSON.stringify({id, task, token, type: 'UPDATE'}),
+      response => {
+        this.fetch_tasks()
+      },
+      (xhr, status, error) => {
+        let header = $('#header');
+        let alert = "<div class='alert alert-danger col-12 alert-dismissible fade show' role='alert'>" +
+          "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>" +
+          "<span aria-hidden='true'>&times;</span></button>" +
+          xhr.responseText + "</div>";
+        header.append(alert);
       }
     )
   }

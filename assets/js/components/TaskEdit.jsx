@@ -3,9 +3,17 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import _ from 'lodash';
 
-class TaskEdit extends Component {
-  updateTask() {
+import api from '../api';
 
+class TaskEdit extends Component {
+  updateTask(time_worked) {
+    let title = $('#create-task-title').val();
+    let desc = $('#create-task-desc').val();
+    let is_complete = $('#create-task-complete').is(':checked');
+    let task = {
+      title, desc, is_complete, time_worked
+    }
+    api.update_task(task, this.props.match.params.id, this.props.session.token)
   }
 
   render() {
@@ -18,7 +26,7 @@ class TaskEdit extends Component {
           <div className="row form-group">
             <label className="col-sm-2 col-form-label">Title</label>
             <div className="col-sm-10">
-              <input className="form-control" id="create-task-tile" type="text"
+              <input className="form-control" id="create-task-title" type="text"
                      defaultValue={title} />
             </div>
           </div>
@@ -38,13 +46,13 @@ class TaskEdit extends Component {
           <div className="row form-group">
             <label className="col-sm-2 col-form-label">Is complete?</label>
             <div className="col-sm-10">
-              <input className="form-control" id="create-task-desc" type="checkbox"
+              <input className="form-control" id="create-task-complete" type="checkbox"
                         defaultChecked={is_complete}/>
             </div>
           </div>
           <div className="row form-group">
             <div className="col-sm-10">
-              <Link to={"/task/" + id} onClick={this.updateTask}>
+              <Link to={"/task/" + id} onClick={() => {this.updateTask(time_worked)}}>
                 <button className="btn btn-secondary" id="register-submit-button">Save</button>
               </Link>
             </div>
@@ -59,7 +67,8 @@ class TaskEdit extends Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks
+    tasks: state.tasks,
+    session: state.session
   }
 };
 
