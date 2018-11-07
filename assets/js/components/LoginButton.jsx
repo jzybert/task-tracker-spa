@@ -13,6 +13,10 @@ class LoginButton extends Component {
       api.create_session(email, pw);
     }
 
+    function logout() {
+      //api.delete_session();
+    }
+
     if (!sessionCreated) {
       return (
         <div className="form-inline my-2">
@@ -26,7 +30,7 @@ class LoginButton extends Component {
       return (
         <div className="form-inline my-2">
           <p>Welcome, User</p>
-          <button className="btn btn-secondary">Logout</button>
+          <button className="btn btn-secondary" onClick={logout}>Logout</button>
         </div>
       );
     }
