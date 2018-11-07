@@ -11,6 +11,7 @@ import TaskList from './components/TaskList';
 import Register from './components/Register';
 import CreateTask from './components/CreateTask';
 import TaskView from './components/TaskView';
+import UserView from './components/UserView';
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -47,6 +48,9 @@ class Root extends Component {
             } />
             <Route path="/task/:id" exact={false} render={(props) =>
               <TaskView {...props} />
+            } />
+            <Route path="/user/:id" exact={false} render={(props) =>
+              <UserView {...props} />
             } />
           </div>
         </div>

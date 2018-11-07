@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import _ from 'lodash';
 
 class UserList extends Component {
@@ -32,7 +33,11 @@ function User(props) {
 
   return (
     <tr>
-      <td>{user.email}</td>
+      <td>
+        <Link to={"/user/" + user.id}>
+          {user.email}
+        </Link>
+      </td>
       <td>{user.admin ? "yes" : "no"}</td>
     </tr>
   );
