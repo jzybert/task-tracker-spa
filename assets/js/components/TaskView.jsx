@@ -21,14 +21,14 @@ class TaskView extends Component {
   addTimeWorked(taskInfo) {
     let hours = $('#edit-time-hours').val();
     let minutes = $('#edit-time-minutes').val();
-    let user_id = this.props.session ? this.props.session.user_id : null;
+    let token = this.props.session ? this.props.session.token : null;
 
-    api.add_time_worked(taskInfo, user_id, hours, minutes);
+    api.add_time_worked(taskInfo, token, hours, minutes);
   }
 
 
   render() {
-    let {users} = this.props;
+    let {users, sessionCreated} = this.props;
     let userOptions = _.map(users, user => {
       return <option key={user.id}>{user.email}</option>;
     });
@@ -54,6 +54,7 @@ class TaskView extends Component {
                 <div style={{marginBottom: "5px"}}>
                   {time_worked}
                 </div>
+                {sessionCreated ?
                 <div className="row form-group">
                   <label className="col-sm-2 col-form-label">Increase time worked:</label>
                   <div className="col-sm-2">
@@ -79,10 +80,11 @@ class TaskView extends Component {
                   <div className="col-sm-1">
                     <button className="btn btn-secondary" onClick={() => {this.addTimeWorked(taskInfo[0])}}>Add Time Worked</button>
                   </div>
-                </div>
+                </div> : null}
               </div>
             </li>
           </ul>
+          {sessionCreated ?
           <div className="column" style={{marginTop: "20px"}}>
             <div className="row form-group">
               <label className="col-sm-2 col-form-label">Assign to:</label>
@@ -98,12 +100,13 @@ class TaskView extends Component {
                 </Link>
               </div>
             </div>
-          </div>
+          </div> : null}
+          {sessionCreated ?
           <div>
             <Link to={"/task/" + id + "/edit"} >
               <button className="btn btn-secondary">Edit Task</button>
             </Link>
-          </div>
+          </div> : null}
         </div>
       );
     } else {
@@ -116,7 +119,8 @@ const mapStateToProps = state => {
   return {
     tasks: state.tasks,
     users: state.users,
-    session: state.session
+    session: state.session,
+    sessionCreated: state.sessionCreated
   }
 };
 

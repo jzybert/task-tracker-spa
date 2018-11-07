@@ -21,6 +21,12 @@ defmodule TaskTrackerSpa.AssignedTasks do
     Repo.all(AssignedTask)
   end
 
+  def list_assigned_tasks_for_user(id) do
+    Repo.all from at in AssignedTask,
+      where: at.user_id ==^ id,
+      preload: [:task, :user]
+  end
+
   @doc """
   Gets a single assigned_task.
 
